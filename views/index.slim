@@ -1,0 +1,46 @@
+doctype html
+html
+  head
+    title The Golden Ticket Machine
+    meta name="author" content='Mr Jeffery'
+    
+  body
+    h1 Golden Tickets for Lunchtime Laptops
+
+    form method='post'
+
+      table
+        - settings.tickets.each_with_index do |ticket, i|
+          tr
+            td.character = ticket.character
+            td.teacher = ticket.teacher
+            td.reason = ticket.reason
+            td.purpose = ticket.purpose
+            td.replace
+              - unless ticket.replaced?
+                button action='submit' formaction="/#{i}" Replace
+
+      p
+        | Replace one of the unlikely characters above with a worthy child from your class.
+
+      p
+        | #{settings.tickets[0].character}
+        input< name='character'
+
+      p
+        | #{settings.tickets[0].teacher}
+        input< name='teacher'
+
+      p
+        | #{settings.tickets[0].reason}
+        br
+          input name='reason' size='50'
+
+      p
+        | #{settings.tickets[0].purpose}
+        br
+          input name='purpose' size='50'
+
+      p
+        | Teacher's code
+        input< name='code' type='password' size='8'
